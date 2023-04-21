@@ -2,4 +2,4 @@
 
 ## data preparing 
 download AudioMNIST dataset \
-`!pip install https://github.com/soerenab/AudioMNIST.git`
+`! git clone https://github.com/soerenab/AudioMNIST`
