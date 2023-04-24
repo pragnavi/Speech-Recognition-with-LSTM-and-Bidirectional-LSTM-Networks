@@ -1,5 +1,6 @@
 """
 https://github.com/aniruddhapal211316/spoken_digit_recognition/blob/main/dataset.py
+https://www.kaggle.com/code/kyrobc/audio-mnist-classifier-with-98-accuracy-15-min
 """
 import torch 
 import torchvision
@@ -8,7 +9,6 @@ from torchaudio.transforms import Resample, MFCC
 from torch.utils.data import Dataset, random_split
 from torch.nn.utils.rnn import pad_sequence
 import os
-from glob import glob
 
 class TrimMFCCs: 
 
@@ -23,12 +23,11 @@ class Standardize:
             sequence /= sequence.std(axis=0)
         return batch 
 
-class SpokenDigitDataset(Dataset): 
+class AudioMNISTDataset(Dataset): 
     
     def __init__(self, path, sr, n_mfcc): 
-        assert os.path.exists(path), f'The path for Spoken digit dataset does not exists' 
+        assert os.path.exists(path), f'The path for dataset does not exist' 
         self.path = path 
-        #self.audio_files = os.listdir(path)
         self.audio_files = self._build_files(path)
         self.sr = sr
         self.transform = torchvision.transforms.Compose([
@@ -40,20 +39,19 @@ class SpokenDigitDataset(Dataset):
     def _build_files(self,path):
         files = {}
         index = 0
-        for ii in range(1, 61):
-            num = "0%d" % ii if ii < 10 else "%d" % ii
-            for jj in range(50):
-                for kk in range(10):
+        for i in range(1, 61):
+            num = "0%d" % i if i < 10 else "%d" % i
+            for j in range(50):
+                for k in range(10):
                     files[index] = [
                         path + num + "/%d_%s_%d.wav" % (
-                            kk, num, jj),
-                        kk
+                            k, num, j),
+                        k
                     ]
-                    index += 1
-                    
+                    index += 1         
         return files    
+
     def __len__(self): 
-        #return len(os.listdir(self.path))
         return 30000
 
     def __getitem__(self, index): 
