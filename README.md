@@ -1,4 +1,4 @@
-# Speech-To-Image-Translation
+# Speech-To-Text-Translation
 
 ## data preparing 
 download AudioMNIST dataset \
