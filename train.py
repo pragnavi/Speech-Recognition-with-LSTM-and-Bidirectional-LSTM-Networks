@@ -19,8 +19,8 @@ from preprocessing import AudioMNISTDataset, collate
 def train(hp): 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    model = LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
-    #model = Bidirectional_LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
+    #model = LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
+    model = Bidirectional_LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
     criterion = nn.NLLLoss()
     optimizer = optim.Adam(model.parameters(), lr=hp['learning_rate'])
     dataset = AudioMNISTDataset(hp['dataset_path'], hp['sampling_rate'], hp['n_mfcc'])
