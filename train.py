@@ -19,8 +19,8 @@ from preprocessing import AudioMNISTDataset, collate
 def train(hp): 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    #model = LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
-    model = Bidirectional_LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
+    model = LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
+    #model = Bidirectional_LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
     criterion = nn.NLLLoss()
     optimizer = optim.Adam(model.parameters(), lr=hp['learning_rate'])
     dataset = AudioMNISTDataset(hp['dataset_path'], hp['sampling_rate'], hp['n_mfcc'])
@@ -79,7 +79,7 @@ def train(hp):
     plt.xlabel('Epoch')
     plt.title('Accuracy vs. Epochs')
     plt.legend(loc='lower right')
-    plt.savefig(os.path.join(hp['model_path'],'accuracy.png'))
+    plt.savefig(os.path.join(hp['model_path'],'lstm_accuracy.png'))
     plt.clf()
 
     plt.figure(figsize=(8, 5))
@@ -90,7 +90,7 @@ def train(hp):
     plt.xlabel('Epoch')
     plt.title('Loss vs. Epochs')
     plt.legend(loc='upper right')
-    plt.savefig(os.path.join(hp['model_path'],'loss.png'))
+    plt.savefig(os.path.join(hp['model_path'],'lstm_loss.png'))
     plt.clf()
 
     model.eval()
