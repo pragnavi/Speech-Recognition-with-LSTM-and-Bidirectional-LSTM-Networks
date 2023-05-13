@@ -11,7 +11,7 @@ Depending on which model you want to train (Regular LSTM or Bidirectional LSTM),
 ## Requirements:
 Language: Python<br>
 
-Please ```pip install...``` the following packages if you haven't already.<br>
+Please ```pip install...``` the following packages if you haven't already.<br><br>
 Packages:
 ```
 matplotlib==3.5.3
