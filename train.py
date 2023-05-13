@@ -19,6 +19,7 @@ from preprocessing import AudioMNISTDataset, collate
 def train(hp): 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
+    # Models below: If you want to run bidirectional, please uncomment that specific model and run again
     model = LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
     #model = Bidirectional_LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
     criterion = nn.NLLLoss()
