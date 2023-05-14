@@ -44,9 +44,10 @@ def train(hp):
             loss.backward()
             optimizer.step()
 
-            train_loss += loss
+            train_loss += loss.item()
             no_audio += len(batch)
             accuracy += (y_pred == labels).sum().item()
+        train_loss /= no_audio
         accuracy /= no_audio
         loss_history['train'][epoch], accuracy_history['train'][epoch] = train_loss, accuracy
 
@@ -61,9 +62,10 @@ def train(hp):
                 y_pred = torch.argmax(y, dim=1)
                 loss = criterion(y, labels)
 
-                valid_loss += loss
+                valid_loss += loss.item()
                 no_audio += len(batch)
                 valid_accuracy += (y_pred == labels).sum().item()
+            valid_loss /= no_audio
             valid_accuracy /= no_audio
             loss_history['valid'][epoch], accuracy_history['valid'][epoch] = valid_loss, valid_accuracy
 
