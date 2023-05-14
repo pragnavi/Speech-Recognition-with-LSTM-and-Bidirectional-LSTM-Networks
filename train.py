@@ -19,6 +19,7 @@ from preprocessing import AudioMNISTDataset, collate
 def train(hp): 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
+    # Models below: If you want to run bidirectional, please uncomment that specific model and run again
     model = LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
     #model = Bidirectional_LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
     criterion = nn.NLLLoss()
@@ -81,7 +82,7 @@ def train(hp):
     plt.xlabel('Epoch')
     plt.title('Accuracy vs. Epochs')
     plt.legend(loc='lower right')
-    plt.savefig(os.path.join(hp['model_path'],'accuracy.png'))
+    plt.savefig(os.path.join(hp['model_path'],'lstm_accuracy.png'))
     plt.clf()
 
     plt.figure(figsize=(8, 5))
@@ -92,7 +93,7 @@ def train(hp):
     plt.xlabel('Epoch')
     plt.title('Loss vs. Epochs')
     plt.legend(loc='upper right')
-    plt.savefig(os.path.join(hp['model_path'],'loss.png'))
+    plt.savefig(os.path.join(hp['model_path'],'lstm_loss.png'))
     plt.clf()
 
     model.eval()
