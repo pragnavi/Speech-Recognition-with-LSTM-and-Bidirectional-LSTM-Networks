@@ -12,6 +12,7 @@ import os
 import argparse
 import yaml 
 from tqdm import tqdm 
+from sklearn.metrics import confusion_matrix
 
 from model import* 
 from preprocessing import AudioMNISTDataset, collate
@@ -20,8 +21,8 @@ def train(hp):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     # Models below: If you want to run bidirectional, please uncomment that specific model and run again
-    model = LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
-    #model = Bidirectional_LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
+    #model = LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
+    model = Bidirectional_LSTM(hp['n_mfcc'], hp['n_label'], hp['h'], hp['d'], hp['n_lstm']).to(device)
     criterion = nn.NLLLoss()
     optimizer = optim.Adam(model.parameters(), lr=hp['learning_rate'])
     dataset = AudioMNISTDataset(hp['dataset_path'], hp['sampling_rate'], hp['n_mfcc'])
@@ -105,6 +106,20 @@ def train(hp):
     y_pred = torch.argmax(y, dim=1)
     total = (y_pred == labels).sum().item()
     acc  = total/len(y_pred)
+
+    # Calculate confusion matrix and accuracy
+    cm = confusion_matrix(labels.to('cpu').numpy(), y_pred.detach().to('cpu').numpy(), labels=hp['labels'])
+
+    df = pd.DataFrame(cm, index=hp['labels'], columns=hp['labels'])
+    plt.figure(figsize=(10,7))
+    sns.heatmap(df, annot=True,fmt='g',cmap="Blues")
+    plt.title('Confusion matrix for test dataset predictions', fontsize=14)
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    b, t = plt.ylim()
+    plt.ylim(b + 0.5, t - 0.5)
+    plt.savefig(os.path.join(hp['model_path'],'confusion_matrix.png'))
+    plt.clf() 
 
     print(f'Train Dataset loss: {(loss_history["train"][-1]):.2f}')
     print(f'Validation Dataset loss: {(loss_history["valid"][-1]):.2f}')
