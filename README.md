@@ -1,27 +1,47 @@
-# Speech Recognition on the Audio MNIST Dataset
+# Speech Recognition with LSTM and Bidirectional LSTM Networks
 
-## Background:
-Speech Recognition and Classification using the Audio MNIST and MNIST Datasets for Deep Learning Final Project, Spring 2023.
+## Overview
+This repository contains the final project for a Deep Learning course, focusing on speech recognition through LSTM and bidirectional LSTM networks. It showcases the process of classifying spoken digits using the AudioMNIST dataset, leveraging MFCCs for audio signal representation.
 
-## Instructions:
-Please clone the repository locally and ensure you meet the requirements in the below section to run the code.<br>
-After downloading the repository, please run ```train.py``` using ```python train.py``` or ```python3 train.py``` depending on your Python version.<br><br>
-Depending on which model you want to train (Regular LSTM or Bidirectional LSTM), uncomment out only the specific model when running the code.
+## Project Structure
+- `Data Preprocessing`: Scripts and notebooks for transforming audio signals into MFCCs.
+- `Model Training`: Code for training LSTM and bidirectional LSTM models.
+- `Evaluation`: Notebooks and scripts for testing the models and analyzing their performance.
+- `Report`: A detailed report (DL_Final_Project.pdf) explaining the methodology, results, and conclusions of the project.
 
-## Requirements:
-Language: Python<br>
+## Getting Started
+To replicate the project's findings or further explore the models:
+1. Clone the repository.
+2. Ensure you have Python and the required libraries (PyTorch, TorchAudio, Matplotlib, SkLearn) installed.
+3. Follow the instructions in the notebooks to preprocess the data, train the models, and evaluate their performance.
 
-Please ```pip install...``` the following packages if you haven't already.<br><br>
-Packages:
-```
-matplotlib==3.5.3
-numpy==1.23.3
-pandas==1.4.3
-PyYAML==6.0
-scikit_learn==1.1.2
-seaborn==0.12.1
-torch==1.12.1
-torchaudio==0.12.1
-torchvision==0.13.1
-tqdm==4.64.0
-```
+## Results
+The project achieved notable success in speech recognition:
+- LSTM Model Accuracy: 99.55%
+- Bidirectional LSTM Model Accuracy: 99.73%
+
+For detailed results, including confusion matrices and accuracy graphs, refer to `DL_Final_Project.pdf`.
+
+## Contributions
+Contributions to improve or extend the project are welcome. Feel free to fork the repository, make your changes, and submit a pull request.
+
+## Contact
+- Shamit Bhatia - sb8028@nyu.edu
+- Leuber Leuterio - ll4407@nyu.edu
+- Pragnavi Ravuluri Sai Durga - pr2370@nyu.edu
+
+## License
+
+    Copyright [2023] [Pragnavi Ravuluri Sai Durga]
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
